@@ -47,7 +47,13 @@ public class HomeController {
 
         if(!taskName.equals(null) && !taskName.equals("")){
             Task newTask = new Task(0, taskName, description, "Да", beginData, endData, "Нет", taskAuthor);
-            tasksRepository.save(newTask);
+            try{
+                tasksRepository.save(newTask);
+            } catch (Exception ex){
+                System.out.println("Ошибка записи в базу данных");
+                System.out.println(ex);
+            }
+
         }
         return new RedirectView("/");
     }
